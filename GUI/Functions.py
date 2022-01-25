@@ -11,18 +11,24 @@ def createUser(username, password, firstName, lastName):
         database= "login"
     )
 
-    cursor = conn.cursor()
-    cursor.execute(
-        f"""INSERT INTO users (username, password, firstName, lastName) 
-        VALUES (
-            '{username.get()}', 
-            '{password.get()}', 
-            '{firstName.get()}', 
-            '{lastName.get()}'
-            )"""
-        )
-    conn.commit()
-    conn.close()
+    if len(username.get()) > 0 and len(password.get()) > 0 and len(firstName.get()) > 0 and len(lastName.get()) > 0:
+        cursor = conn.cursor()
+        cursor.execute(
+            f"""INSERT INTO users (username, password, firstName, lastName) 
+            VALUES (
+                '{username.get()}', 
+                '{password.get()}', 
+                '{firstName.get()}', 
+                '{lastName.get()}'
+                )"""
+            )
+        conn.commit()
+        conn.close()
+    else:
+        tk.messagebox.showinfo(
+            'info', 
+            'Invalid input, check that all inputs are filled.'
+            )
 
     username.delete(0,tk.END)
     password.delete(0,tk.END)
